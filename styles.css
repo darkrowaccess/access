@@ -75,5 +75,5 @@ a:hover {
 /* Añade un estilo para las imágenes */
 .producto img {
     max-width: 100%; /* Ajusta la imagen al ancho del contenedor */
-    height: auto; /* Mantiene la proporción de aspecto original de la imagen */
+    max-height: 100%; /* Ajusta la imagen al alto del contenedor */
 }
