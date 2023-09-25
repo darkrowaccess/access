@@ -74,8 +74,9 @@ a:hover {
 
 /* Añade un estilo para las imágenes */
 .producto img {
-    flex: 1; /* Hace que todas las imágenes ocupen el mismo espacio dentro del contenedor */
-    max-width: 100%; /* Ajusta la imagen al ancho del contenedor */
-    height: auto; /* Ajusta la imagen al alto del contenedor */
-    aspect-ratio: 1; /* Mantiene la relación de aspecto cuadrada */
+    flex: 1; /* Hace que todas las imágenes ocupen el mismo espacio horizontal en el contenedor */
+    max-width: 100%; /* Establece el ancho máximo al 100% del contenedor */
+    max-height: 100%; /* Establece la altura máxima al 100% del contenedor */
+    width: auto; /* Ajusta automáticamente el ancho para mantener la proporción */
+    height: auto; /* Ajusta automáticamente la altura para mantener la proporción */
 }
