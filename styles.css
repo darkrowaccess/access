@@ -75,6 +75,6 @@ a:hover {
 /* Añade un estilo para las imágenes */
 .producto img {
     object-fit: contain;
-    width: 400px;
+    width: 200px;
     height: 400px;
 }
