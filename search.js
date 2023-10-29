@@ -1,17 +1,14 @@
 function searchProducts() {
-    const input = normalizeText(document.getElementById('searchInput').value).toLowerCase();
+    const input = document.getElementById('searchInput').value.toLowerCase();
     const productos = document.querySelectorAll('.producto');
-    const searchResults = document.getElementById('searchResults');
 
-    // Borra los resultados anteriores
+    const searchResults = document.getElementById('searchResults');
     searchResults.innerHTML = '';
 
     productos.forEach(producto => {
-        const nombre = normalizeText(producto.getAttribute('data-nombre')).toLowerCase();
+        const nombre = producto.getAttribute('data-nombre').toLowerCase();
         if (nombre.includes(input)) {
-            // Solo agrega el producto si coincide con la búsqueda actual
-            const productoClonado = producto.cloneNode(true);
-            searchResults.appendChild(productoClonado);
+            searchResults.appendChild(producto.cloneNode(true));
         }
     });
 
