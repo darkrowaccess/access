@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CATALOGO LIBRERIA</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="search.js"></script>
 </head>
 <body>
     <main>
         <h1>ARTICULOS</h1>
     </main>
-    
+    <input type="text" id="searchInput" placeholder="Buscar producto por nombre">
+    <button onclick="searchProducts()">Buscar</button>
+    <div id="searchResults"></div>
     <div class="catalogo">
         <div class="producto">
             <img src="i_lib/big_evo.jpg" alt="Imagen 1">
