@@ -1,1 +1,27 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATALOGO RELOJERIA</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="search.js"></script>
+</head>
+<body>
+    <main>
+        <h1>ARTICULOS</h1>
+    </main>
+     <!-- Campo de búsqueda -->
+    <input type="text" id="searchInput" placeholder="Buscar producto por nombre">
+    <button onclick="searchProducts()">Buscar</button>
+    <!-- Contenedor para resultados -->
+    <div id="searchResults"></div>
+    <div class="catalogo">
+        <div class="producto" data-nombre="reloj">
+            <img src="relojes/sport_shda.jpeg" alt="Imagen 1">
+            <p class="descripcion">Reloj SHDA $5000</p>
+        </div>
+        <!-- Agrega más imágenes y descripciones aquí -->
+    </div>
+</body>
+</html>
