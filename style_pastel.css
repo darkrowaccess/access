@@ -1,0 +1,33 @@
+body {
+    background-color: #f0f8ff; /* Fondo pastel */
+    color: #333;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: #ff69b4; /* Color rosado pastel */
+    text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff69b4;
+}
+
+.text-kawaii {
+    color: #ff69b4;
+    text-shadow: 0 0 5px rgba(255,105,180,0.5), 0 0 10px rgba(255,105,180,0.5), 0 0 20px rgba(255,105,180,0.5), 0 0 40px rgba(255,105,180,0.5);
+}
+
+.product-card {
+    background-color: #fffaf0; /* Fondo blanco con un toque pastel */
+    border: none;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-card .card-title {
+    color: #ff69b4;
+    text-shadow: 0 0 5px rgba(255,105,180,0.5), 0 0 10px rgba(255,105,180,0.5);
+}
+
+.product-card .card-text {
+    color: #555;
+}
