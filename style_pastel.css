@@ -40,7 +40,7 @@ header h1 {
     background-color: rgba(255, 105, 180, 0.5); /* Color rosado con transparencia */
     opacity: 0;
     pointer-events: none;
-    animation: shineEffect 1s forwards; /* Duración de la animación */
+    animation: shineEffect 2s forwards; /* Duración de la animación */
 }
 
 @keyframes shineEffect {
