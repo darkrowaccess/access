@@ -33,25 +33,41 @@ header h1 {
     color: #555;
 }
 
+.product-card img {
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
 .shine {
     position: absolute;
-    top: -50%; /* Ajuste para que el brillo se desborde */
-    left: -50%;
-    width: 200%; /* Aumentar el tamaño para desbordar */
-    height: 200%;
-    background-color: rgba(255, 105, 180, 0.6); /* Color rosado con transparencia */
-    opacity: 0;
+    top: -10%; /* Ajuste para que el brillo se desborde */
+    left: -10%;
+    width: 120%; /* Aumentar el tamaño para desbordar */
+    height: 120%;
+    background-color: rgba(255, 255, 255, 0); /* Transparente inicialmente */
     pointer-events: none;
     animation: shineEffect 2s forwards; /* Duración de la animación */
-    border-radius: 10px; /* Asegurarse de que coincida con la tarjeta */
+    border-radius: 15px; /* Para que el resplandor coincida con la tarjeta */
+    box-shadow: 0 0 20px 10px rgba(255, 105, 180, 0.5); /* Efecto de resplandor */
+    z-index: 10;
 }
 
 @keyframes shineEffect {
     0% {
         opacity: 0;
+        box-shadow: 0 0 20px 10px rgba(255, 105, 180, 0);
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 30px 15px rgba(255, 105, 180, 0.8);
     }
     100% {
         opacity: 1;
+        box-shadow: 0 0 20px 10px rgba(255, 105, 180, 0.5);
     }
 }
 
@@ -61,9 +77,9 @@ header h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 150%;
-    height: 150%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 20%, transparent 80%); /* Brillitos */
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 10%, transparent 70%); /* Brillitos */
     opacity: 0;
     animation: sparkle 2s forwards; /* Duración de la animación */
 }
@@ -72,7 +88,10 @@ header h1 {
     0% {
         opacity: 0;
     }
-    100% {
+    50% {
         opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }
