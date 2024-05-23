@@ -7,6 +7,6 @@ function shine(element) {
         shineEffect.classList.add("active");
         setTimeout(function() {
             shineEffect.remove();
-        }, 1000); // Modifica el tiempo de duración del efecto si lo deseas
+        }, 2000); // Duración del efecto de brillo
     }, 50);
 }
