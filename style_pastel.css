@@ -12,10 +12,11 @@ header h1 {
 
 .text-kawaii {
     color: #ff69b4;
-    text-shadow: 0 0 5px rgba(255,105,180,0.5), 0 0 10px rgba(255,105,180,0.5), 0 0 20px rgba(255,105,180,0.5), 0 0 40px rgba(255,105,180,0.5);
+    text-shadow: 0 0 5px rgba(255, 105, 180, 0.5), 0 0 10px rgba(255, 105, 180, 0.5), 0 0 20px rgba(255, 105, 180, 0.5), 0 0 40px rgba(255, 105, 180, 0.5);
 }
 
 .product-card {
+    position: relative; /* Necesario para que el brillo se posicione correctamente */
     background-color: #fffaf0; /* Fondo blanco con un toque pastel */
     border: none;
     margin-bottom: 30px;
@@ -25,22 +26,24 @@ header h1 {
 
 .product-card .card-title {
     color: #ff69b4;
-    text-shadow: 0 0 5px rgba(255,105,180,0.5), 0 0 10px rgba(255,105,180,0.5);
+    text-shadow: 0 0 5px rgba(255, 105, 180, 0.5), 0 0 10px rgba(255, 105, 180, 0.5);
 }
 
 .product-card .card-text {
     color: #555;
 }
+
 .shine {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 105, 180, 0.8); /* Color rosado con transparencia */
+    top: -50%; /* Ajuste para que el brillo se desborde */
+    left: -50%;
+    width: 200%; /* Aumentar el tamaño para desbordar */
+    height: 200%;
+    background-color: rgba(255, 105, 180, 0.6); /* Color rosado con transparencia */
     opacity: 0;
     pointer-events: none;
     animation: shineEffect 2s forwards; /* Duración de la animación */
+    border-radius: 10px; /* Asegurarse de que coincida con la tarjeta */
 }
 
 @keyframes shineEffect {
@@ -52,17 +55,14 @@ header h1 {
     }
 }
 
-.shine.active {
-    animation: none; /* Detiene la animación cuando se activa */
-}
-
 .shine::after {
     content: "";
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    height: 150%;
     background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 20%, transparent 80%); /* Brillitos */
     opacity: 0;
     animation: sparkle 2s forwards; /* Duración de la animación */
@@ -76,4 +76,3 @@ header h1 {
         opacity: 1;
     }
 }
-
