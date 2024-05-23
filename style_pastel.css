@@ -65,7 +65,7 @@ header h1 {
     height: 200%;
     background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 20%, transparent 80%); /* Brillitos */
     opacity: 0;
-    animation: sparkle 5s forwards; /* Duración de la animación */
+    animation: sparkle 2s forwards; /* Duración de la animación */
 }
 
 @keyframes sparkle {
