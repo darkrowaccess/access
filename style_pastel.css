@@ -52,7 +52,7 @@ header h1 {
     pointer-events: none;
     animation: shineEffect 2s forwards; /* Duración de la animación */
     border-radius: 15px; /* Para que el resplandor coincida con la tarjeta */
-    box-shadow: 0 0 20px 10px rgba(255, 105, 180, 0.5); /* Efecto de resplandor */
+    box-shadow: 0 0 10px 5px rgba(255, 105, 180, 0.3); /* Efecto de resplandor */
     z-index: 10;
 }
 
@@ -79,7 +79,7 @@ header h1 {
     transform: translate(-50%, -50%);
     width: 300%;
     height: 300%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 10%, transparent 70%); /* Brillitos */
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 70%); /* Brillitos */
     opacity: 0;
     animation: sparkle 2s forwards; /* Duración de la animación */
 }
