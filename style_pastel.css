@@ -116,15 +116,3 @@ header h1 {
     z-index: 5;
     pointer-events: none;
 }
-
-#gameContainer {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    width: 200px;
-    height: 200px;
-    background: #fff;
-    border: 2px solid #ccc;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-}
-
