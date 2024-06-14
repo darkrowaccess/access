@@ -147,25 +147,26 @@
         document.addEventListener('DOMContentLoaded', function() {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
+    
+    // Ajustar el tamaño del canvas
+    canvas.width = 400;
+    canvas.height = 400;
 
     const playerImg = new Image();
     playerImg.src = 'cursor_cinna.png'; // Ruta de la imagen del jugador
 
-    const player = { x: 90, y: 250, width: 50, height: 50 }; // Ajustar el tamaño del jugador según la imagen
+    const player = { x: 90, y: 250, width: 50, height: 50 }; // Posición inicial y tamaño del jugador
 
     const cakes = [];
     let score = 0;
-    let isPaused = false;
 
     function drawPlayer() {
         ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
     }
 
     function createCake() {
-        if (!isPaused) {
-            const cake = { x: Math.random() * (canvas.width - 20), y: 0, width: 20, height: 20, color: '#FFD700' }; // Color amarillo pastel
-            cakes.push(cake);
-        }
+        const cake = { x: Math.random() * (canvas.width - 20), y: 0, width: 20, height: 20, color: '#FFD700' }; // Color amarillo pastel
+        cakes.push(cake);
     }
 
     function drawCakes() {
@@ -216,22 +217,28 @@
         requestAnimationFrame(gameLoop);
     }
 
+    // Manejo de eventos de teclado
     document.addEventListener('keydown', function(event) {
-        if (!isPaused) {
-            if (event.key === 'ArrowLeft' && player.x > 0) {
-                player.x -= 20;
-            } else if (event.key === 'ArrowRight' && player.x < canvas.width - player.width) {
-                player.x += 20;
-            }
-        }
-
-        // Pausar o reanudar el juego con la tecla 'P'
-        if (event.key === 'p' || event.key === 'P') {
-            isPaused = !isPaused;
+        if (event.key === 'ArrowLeft' && player.x > 0) {
+            player.x -= 20;
+        } else if (event.key === 'ArrowRight' && player.x < canvas.width - player.width) {
+            player.x += 20;
         }
     });
 
-    setInterval(createCake, 2000); // Crear un pastel cada 2 segundo
+    // Manejo de eventos táctiles
+    canvas.addEventListener('touchstart', function(event) {
+        const touchX = event.touches[0].clientX - canvas.getBoundingClientRect().left;
+        const canvasCenterX = canvas.width / 2;
+
+        if (touchX < canvasCenterX && player.x > 0) {
+            player.x -= 20;
+        } else if (touchX > canvasCenterX && player.x < canvas.width - player.width) {
+            player.x += 20;
+        }
+    });
+
+    setInterval(createCake, 1000); // Crear un pastel cada segundo
     gameLoop();
 });
     </script>
