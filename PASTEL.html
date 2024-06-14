@@ -147,11 +147,9 @@
         document.addEventListener('DOMContentLoaded', function() {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
-    
-    // Ajustar el tamaño del canvas
-    canvas.width = 400;
-    canvas.height = 400;
 
+    // Ajustar el tamaño del canvas
+            
     const playerImg = new Image();
     playerImg.src = 'cursor_cinna.png'; // Ruta de la imagen del jugador
 
@@ -165,15 +163,17 @@
     }
 
     function createCake() {
-        const cake = { x: Math.random() * (canvas.width - 20), y: 0, width: 20, height: 20, color: '#FFD700' }; // Color amarillo pastel
-        cakes.push(cake);
-    }
+        const emoji = '🍰'; // Emoji de pastel
+        const cake = { x: Math.random() * (canvas.width - 40), y: 0, size: 40 }; // Tamaño del emoji de pastel
 
-    function drawCakes() {
-        cakes.forEach(cake => {
-            ctx.fillStyle = cake.color;
-            ctx.fillRect(cake.x, cake.y, cake.width, cake.height);
-        });
+        cakes.push(cake);
+
+        function drawCake() {
+            ctx.font = cake.size + 'px sans-serif';
+            ctx.fillText(emoji, cake.x, cake.y + cake.size);
+        }
+
+        drawCake();
     }
 
     function updateCakes() {
@@ -182,12 +182,12 @@
 
             // Detectar colisión con el jugador
             if (cake.x < player.x + player.width &&
-                cake.x + cake.width > player.x &&
+                cake.x + cake.size > player.x &&
                 cake.y < player.y + player.height &&
-                cake.y + cake.height > player.y) {
+                cake.y + cake.size > player.y) {
                 score++;
                 cake.y = canvas.height + 100; // Mover el pastel fuera del canvas
-                cake.x = Math.random() * (canvas.width - 20); // Colocar el pastel en una posición aleatoria en X
+                cake.x = Math.random() * (canvas.width - 40); // Colocar el pastel en una posición aleatoria en X
             }
 
             // Eliminar los pasteles que salen del canvas
@@ -211,7 +211,7 @@
     function gameLoop() {
         clearCanvas();
         drawPlayer();
-        drawCakes();
+        cakes.forEach(createCake); // Dibuja todos los pasteles en cada iteración
         updateCakes();
         drawScore();
         requestAnimationFrame(gameLoop);
@@ -238,7 +238,7 @@
         }
     });
 
-    setInterval(createCake, 1000); // Crear un pastel cada segundo
+    setInterval(createCake, 2000); // Crear un pastel cada segundo
     gameLoop();
 });
     </script>
