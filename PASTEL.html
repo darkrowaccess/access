@@ -134,7 +134,7 @@
             const ctx = canvas.getContext('2d');
 
             const player = { x: 90, y: 180, width: 20, height: 20, color: 'blue' };
-            const balls = [];
+            const cakes = [];
             let score = 0;
 
             function drawPlayer() {
@@ -142,34 +142,31 @@
                 ctx.fillRect(player.x, player.y, player.width, player.height);
             }
 
-            function createBall() {
-                const ball = { x: Math.random() * 180, y: 0, radius: 10, color: 'red', speed: 2 };
-                balls.push(ball);
+            function createCake() {
+                const cake = { x: Math.random() * 180, y: 0, emoji: '🍰', speed: 1 };
+                cakes.push(cake);
             }
 
-            function drawBalls() {
-                balls.forEach(ball => {
-                    ctx.beginPath();
-                    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = ball.color;
-                    ctx.fill();
-                    ctx.closePath();
+            function drawCakes() {
+                cakes.forEach(cake => {
+                    ctx.font = '24px Arial';
+                    ctx.fillText(cake.emoji, cake.x, cake.y);
                 });
             }
 
-            function updateBalls() {
-                balls.forEach(ball => {
-                    ball.y += ball.speed;
+            function updateCakes() {
+                cakes.forEach(cake => {
+                    cake.y += cake.speed;
 
-                    if (ball.y + ball.radius > canvas.height) {
-                        ball.y = 0;
-                        ball.x = Math.random() * 180;
+                    if (cake.y > canvas.height) {
+                        cake.y = 0;
+                        cake.x = Math.random() * 180;
                     }
 
-                    if (ball.x > player.x && ball.x < player.x + player.width && ball.y > player.y && ball.y < player.y + player.height) {
+                    if (cake.x > player.x && cake.x < player.x + player.width && cake.y > player.y && cake.y < player.y + player.height) {
                         score++;
-                        ball.y = 0;
-                        ball.x = Math.random() * 180;
+                        cake.y = 0;
+                        cake.x = Math.random() * 180;
                     }
                 });
             }
@@ -201,7 +198,7 @@
                 }
             });
 
-            setInterval(createBall, 1000);
+            setInterval(createCake, 2000);
             gameLoop();
         });
     </script>
