@@ -148,13 +148,16 @@
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-    const player = { x: 90, y: 180, width: 20, height: 20, color: '#87CEEB' }; // Color azul pastel
+    const playerImg = new Image();
+    playerImg.src = 'cursor_cinna.png'; // Ruta de la imagen del jugador
+
+    const player = { x: 90, y: 180, width: 40, height: 40 }; // Ajustar el tamaño del jugador según la imagen
+
     const cakes = [];
     let score = 0;
 
     function drawPlayer() {
-        ctx.fillStyle = player.color;
-        ctx.fillRect(player.x, player.y, player.width, player.height);
+        ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
     }
 
     function createCake() {
@@ -221,7 +224,6 @@
     setInterval(createCake, 1000); // Crear un pastel cada segundo
     gameLoop();
 });
-
     </script>
 </body>
 </html>
