@@ -25,7 +25,9 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
         #gameCanvas {
-            background-color: #f9f9f9;
+            background-color: #f9f9f9; /* Fondo gris pastel para el canvas */
+            border: 2px solid #ccc;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -146,7 +148,8 @@
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-    const player = { x: 90, y: 180, width: 20, height: 20, color: 'blue' };
+    const player = { x: 90, y: 180, width: 20, height: 20, color: '#87CEEB' }; // Color azul pastel
+    const cakes = [];
     let score = 0;
 
     function drawPlayer() {
@@ -154,13 +157,56 @@
         ctx.fillRect(player.x, player.y, player.width, player.height);
     }
 
+    function createCake() {
+        const cake = { x: Math.random() * (canvas.width - 20), y: 0, width: 20, height: 20, color: '#FFD700' }; // Color amarillo pastel
+        cakes.push(cake);
+    }
+
+    function drawCakes() {
+        cakes.forEach(cake => {
+            ctx.fillStyle = cake.color;
+            ctx.fillRect(cake.x, cake.y, cake.width, cake.height);
+        });
+    }
+
+    function updateCakes() {
+        cakes.forEach(cake => {
+            cake.y += 2; // Velocidad de caída de los pasteles
+
+            // Detectar colisión con el jugador
+            if (cake.x < player.x + player.width &&
+                cake.x + cake.width > player.x &&
+                cake.y < player.y + player.height &&
+                cake.y + cake.height > player.y) {
+                score++;
+                cake.y = canvas.height + 100; // Mover el pastel fuera del canvas
+                cake.x = Math.random() * (canvas.width - 20); // Colocar el pastel en una posición aleatoria en X
+            }
+
+            // Eliminar los pasteles que salen del canvas
+            if (cake.y > canvas.height) {
+                const index = cakes.indexOf(cake);
+                cakes.splice(index, 1);
+            }
+        });
+    }
+
     function clearCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function drawScore() {
+        ctx.font = '16px Arial';
+        ctx.fillStyle = '#000';
+        ctx.fillText('Pasteles comidos: ' + score, 10, 20); // Mostrar la cantidad de pasteles comidos
     }
 
     function gameLoop() {
         clearCanvas();
         drawPlayer();
+        drawCakes();
+        updateCakes();
+        drawScore();
         requestAnimationFrame(gameLoop);
     }
 
@@ -172,6 +218,7 @@
         }
     });
 
+    setInterval(createCake, 1000); // Crear un pastel cada segundo
     gameLoop();
 });
 
