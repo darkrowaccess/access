@@ -82,4 +82,10 @@ a:hover {
     object-fit: contain;
     width: 200px;
     height: 400px;
+    transform: translateY(20px);
+    transition: transform 0.5s ease;
+}
+
+.producto:hover img {
+    transform: translateY(0);
 }
