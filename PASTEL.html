@@ -143,77 +143,38 @@
     <!-- Juego JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const canvas = document.getElementById('gameCanvas');
-            const ctx = canvas.getContext('2d');
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
 
-            const player = { x: 90, y: 180, width: 20, height: 20, color: 'blue' };
-            const cakes = [];
-            let score = 0;
+    const player = { x: 90, y: 180, width: 20, height: 20, color: 'blue' };
+    let score = 0;
 
-            function drawPlayer() {
-                ctx.fillStyle = player.color;
-                ctx.fillRect(player.x, player.y, player.width, player.height);
-            }
+    function drawPlayer() {
+        ctx.fillStyle = player.color;
+        ctx.fillRect(player.x, player.y, player.width, player.height);
+    }
 
-            function createCake() {
-                const cake = { x: Math.random() * 180, y: 0, emoji: '🍰', speed: 0.5 };
-                cakes.push(cake);
-            }
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
 
-            function drawCakes() {
-                cakes.forEach(cake => {
-                    ctx.font = '24px Arial';
-                    ctx.fillText(cake.emoji, cake.x, cake.y);
-                });
-            }
+    function gameLoop() {
+        clearCanvas();
+        drawPlayer();
+        requestAnimationFrame(gameLoop);
+    }
 
-            function updateCakes() {
-                cakes.forEach(cake => {
-                    cake.y += cake.speed;
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'ArrowLeft' && player.x > 0) {
+            player.x -= 20;
+        } else if (event.key === 'ArrowRight' && player.x < canvas.width - player.width) {
+            player.x += 20;
+        }
+    });
 
-                    if (cake.y > canvas.height) {
-                        cake.y = 0;
-                        cake.x = Math.random() * 180;
-                    }
+    gameLoop();
+});
 
-                    if (cake.x > player.x && cake.x < player.x + player.width && cake.y > player.y && cake.y < player.y + player.height) {
-                        score++;
-                        cake.y = 0;
-                        cake.x = Math.random() * 180;
-                    }
-                });
-            }
-
-            function drawScore() {
-                ctx.font = '16px Arial';
-                ctx.fillStyle = '#000';
-                ctx.fillText('Score: ' + score, 8, 20);
-            }
-
-            function clearCanvas() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            }
-
-            function gameLoop() {
-                clearCanvas();
-                drawPlayer();
-                drawBalls();
-                updateBalls();
-                drawScore();
-                requestAnimationFrame(gameLoop);
-            }
-
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'ArrowLeft' && player.x > 0) {
-                    player.x -= 20;
-                } else if (event.key === 'ArrowRight' && player.x < canvas.width - player.width) {
-                    player.x += 20;
-                }
-            });
-
-            setInterval(createCake, 2000);
-            gameLoop();
-        });
     </script>
 </body>
 </html>
