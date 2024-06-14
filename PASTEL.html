@@ -161,14 +161,15 @@
     }
 
     function createCake() {
-        const cake = { x: Math.random() * (canvas.width - 20), y: 0, width: 20, height: 20, color: '#FFD700' }; // Color amarillo pastel
+        const cake = { x: Math.random() * (canvas.width - 20), y: 0, size: 30 }; // Tamaño del emoji de pastel
         cakes.push(cake);
     }
 
     function drawCakes() {
         cakes.forEach(cake => {
-            ctx.fillStyle = cake.color;
-            ctx.fillRect(cake.x, cake.y, cake.width, cake.height);
+            // Emoji de pastel (unicode)
+            ctx.font = `${cake.size}px serif`;
+            ctx.fillText('🍰', cake.x, cake.y + cake.size); // Dibujar el emoji de pastel
         });
     }
 
@@ -178,12 +179,12 @@
 
             // Detectar colisión con el jugador
             if (cake.x < player.x + player.width &&
-                cake.x + cake.width > player.x &&
+                cake.x + cake.size > player.x &&
                 cake.y < player.y + player.height &&
-                cake.y + cake.height > player.y) {
+                cake.y + cake.size > player.y) {
                 score++;
                 cake.y = canvas.height + 100; // Mover el pastel fuera del canvas
-                cake.x = Math.random() * (canvas.width - 20); // Colocar el pastel en una posición aleatoria en X
+                cake.x = Math.random() * (canvas.width - cake.size); // Colocar el pastel en una posición aleatoria en X
             }
 
             // Eliminar los pasteles que salen del canvas
