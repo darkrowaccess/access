@@ -115,5 +115,83 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Custom JavaScript -->
     <script src="script_pastel.js"></script>
+    <!-- Juego JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+
+            const player = { x: 90, y: 180, width: 20, height: 20, color: 'blue' };
+            const balls = [];
+            let score = 0;
+
+            function drawPlayer() {
+                ctx.fillStyle = player.color;
+                ctx.fillRect(player.x, player.y, player.width, player.height);
+            }
+
+            function createBall() {
+                const ball = { x: Math.random() * 180, y: 0, radius: 10, color: 'red', speed: 2 };
+                balls.push(ball);
+            }
+
+            function drawBalls() {
+                balls.forEach(ball => {
+                    ctx.beginPath();
+                    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = ball.color;
+                    ctx.fill();
+                    ctx.closePath();
+                });
+            }
+
+            function updateBalls() {
+                balls.forEach(ball => {
+                    ball.y += ball.speed;
+
+                    if (ball.y + ball.radius > canvas.height) {
+                        ball.y = 0;
+                        ball.x = Math.random() * 180;
+                    }
+
+                    if (ball.x > player.x && ball.x < player.x + player.width && ball.y > player.y && ball.y < player.y + player.height) {
+                        score++;
+                        ball.y = 0;
+                        ball.x = Math.random() * 180;
+                    }
+                });
+            }
+
+            function drawScore() {
+                ctx.font = '16px Arial';
+                ctx.fillStyle = '#000';
+                ctx.fillText('Score: ' + score, 8, 20);
+            }
+
+            function clearCanvas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+
+            function gameLoop() {
+                clearCanvas();
+                drawPlayer();
+                drawBalls();
+                updateBalls();
+                drawScore();
+                requestAnimationFrame(gameLoop);
+            }
+
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'ArrowLeft' && player.x > 0) {
+                    player.x -= 20;
+                } else if (event.key === 'ArrowRight' && player.x < canvas.width - player.width) {
+                    player.x += 20;
+                }
+            });
+
+            setInterval(createBall, 1000);
+            gameLoop();
+        });
+    </script>
 </body>
 </html>
