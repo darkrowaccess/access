@@ -4,8 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anime Store</title>
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
+    <script src="search.js"></script>
+    <style>
+        .button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #ffd1dc; /* Color pastel */
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button-link:hover {
+            background-color: #ffadc1; /* Color pastel más oscuro al pasar el ratón */
+        }
+        
+        @keyframes rgbGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .button-link2 {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background: linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            background-size: 1400% 1400%;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+            animation: rgbGradient 10s ease infinite;
+            transition: transform 0.2s;
+        }
+        .button-link2:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
     <header class="text-center py-4">
