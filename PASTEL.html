@@ -290,6 +290,130 @@
 
     pauseButton.addEventListener('click', pauseGame);
     resumeButton.addEventListener('click', resumeGame);
+//juego2
+       <!-- Producto Juego 2 -->
+<div class="col-md-12 mt-4">
+    <div class="card product-card">
+        <div class="card-body text-center">
+            <h5 class="card-title">Mini Juego estilo Nintendo</h5>
+            <div id="gameContainer2">
+                <canvas id="gameCanvas2" width="200" height="300"></canvas>
+            </div>
+            <!-- Botones de control -->
+            <div class="mt-3 d-flex justify-content-center">
+                <button id="leftButton" class="btn btn-primary mr-3">⬅️</button>
+                <button id="rightButton" class="btn btn-primary">➡️</button>
+            </div>
+            <!-- Botones pausa/reanudar -->
+            <div class="mt-3">
+                <button id="pauseButton2" class="btn btn-danger mr-2">Pausar</button>
+                <button id="resumeButton2" class="btn btn-success">Reanudar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const canvas2 = document.getElementById('gameCanvas2');
+    const ctx2 = canvas2.getContext('2d');
+
+    const playerImg2 = new Image();
+    playerImg2.src = 'cursor_cinna.png';
+
+    const player2 = { x: 90, y: 250, width: 50, height: 50 };
+
+    const cakes2 = [];
+    let score2 = 0;
+    let animationId2 = null;
+    let isPaused2 = false;
+
+    function drawPlayer2() {
+        ctx2.drawImage(playerImg2, player2.x, player2.y, player2.width, player2.height);
+    }
+
+    function createCake2() {
+        const cake = { x: Math.random() * (canvas2.width - 30), y: 0, size: 30 };
+        cakes2.push(cake);
+    }
+
+    function updateCakes2() {
+        cakes2.forEach(cake => {
+            cake.y += 2;
+
+            if (cake.x < player2.x + player2.width &&
+                cake.x + cake.size > player2.x &&
+                cake.y < player2.y + player2.height &&
+                cake.y + cake.size > player2.y) {
+                score2++;
+                cake.y = canvas2.height + 100;
+                cake.x = Math.random() * (canvas2.width - 40);
+            }
+
+            if (cake.y > canvas2.height) {
+                const index = cakes2.indexOf(cake);
+                cakes2.splice(index, 1);
+            }
+        });
+    }
+
+    function clearCanvas2() {
+        ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+    }
+
+    function drawCakes2() {
+        cakes2.forEach(cake => {
+            ctx2.font = cake.size + 'px sans-serif';
+            ctx2.fillText('🍰', cake.x, cake.y);
+        });
+    }
+
+    function drawScore2() {
+        ctx2.font = '16px Arial';
+        ctx2.fillStyle = '#000';
+        ctx2.fillText('Pasteles comidos: ' + score2, 10, 20);
+    }
+
+    function gameLoop2() {
+        clearCanvas2();
+        drawPlayer2();
+        updateCakes2();
+        drawCakes2();
+        drawScore2();
+        animationId2 = requestAnimationFrame(gameLoop2);
+    }
+
+    function pauseGame2() {
+        if (!isPaused2) {
+            cancelAnimationFrame(animationId2);
+            isPaused2 = true;
+        }
+    }
+
+    function resumeGame2() {
+        if (isPaused2) {
+            isPaused2 = false;
+            gameLoop2();
+        }
+    }
+
+    // Botones de control
+    document.getElementById('leftButton').addEventListener('click', function() {
+        if (player2.x > 0) player2.x -= 20;
+    });
+
+    document.getElementById('rightButton').addEventListener('click', function() {
+        if (player2.x < canvas2.width - player2.width) player2.x += 20;
+    });
+
+    // Botones de pausa/reanudar
+    document.getElementById('pauseButton2').addEventListener('click', pauseGame2);
+    document.getElementById('resumeButton2').addEventListener('click', resumeGame2);
+
+    setInterval(createCake2, 2000); 
+    gameLoop2();
+});
+</script>     
 });
     </script>
 </body>
