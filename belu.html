@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para vos ❤️</title>
+
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial;
+      background: #f5f5f5;
+      margin-top: 100px;
+    }
+
+    h1 {
+      color: #444;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    #yes {
+      background: #4CAF50;
+      color: white;
+      transition: 0.3s;
+    }
+
+    #no {
+      background: #f44336;
+      color: white;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>¿Querés estar conmigo? 🥺</h1>
+
+  <button id="yes" class="btn">YES</button>
+  <button id="no" class="btn">NO</button>
+
+  <h2 id="mensaje"></h2>
+
+  <script>
+    let tamaño = 20;
+
+    const yes = document.getElementById("yes");
+    const no = document.getElementById("no");
+    const mensaje = document.getElementById("mensaje");
+
+    // Cuando intenta apretar NO
+    no.addEventListener("mouseover", () => {
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+
+      no.style.left = x + "px";
+      no.style.top = y + "px";
+
+      // agrandar el YES
+      tamaño += 10;
+      yes.style.fontSize = tamaño + "px";
+      yes.style.padding = (tamaño/2) + "px " + tamaño + "px";
+    });
+
+    // Cuando aprieta YES
+    yes.addEventListener("click", () => {
+      mensaje.innerHTML = "Sabía que ibas a decir que sí 😍❤️";
+    });
+  </script>
+
+</body>
+</html>
