@@ -23,7 +23,6 @@
       text-align: center;
       width: 90%;
       max-width: 400px;
-      transition: transform 0.5s ease;
     }
 
     img {
@@ -62,20 +61,24 @@
       position: fixed;
     }
 
-    /* 💖 CAJA DE TEXTO FINAL */
+    /* 💖 CAJA FINAL (SIEMPRE VISIBLE) */
     #finalBox {
-      margin-top: 20px;
-      padding: 15px;
-      background: rgba(255, 192, 203, 0.2);
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.5);
+
+      padding: 15px 25px;
+      background: rgba(255, 192, 203, 0.3);
       border-radius: 20px;
-      font-size: 28px;
+
+      font-size: 30px;
       color: #ff4d6d;
       font-family: 'Pacifico', cursive;
+
       opacity: 0;
-      transform: scale(0.5);
       transition: all 0.5s ease;
 
-      /* glow */
       text-shadow:
         0 0 5px #ff4d6d,
         0 0 10px #ff4d6d,
@@ -84,7 +87,7 @@
 
     .show {
       opacity: 1;
-      transform: scale(1);
+      transform: translateX(-50%) scale(1);
     }
 
     /* 💖 corazones */
@@ -94,6 +97,7 @@
       font-size: 24px;
       animation: float 5s linear infinite;
       color: pink;
+      pointer-events: none;
     }
 
     @keyframes float {
@@ -106,7 +110,7 @@
 
 <body>
 
-  <div class="container" id="container">
+  <div class="container">
 
     <img id="gif" src="amor.gif">
 
@@ -115,10 +119,10 @@
     <button id="yes" class="btn">YES</button>
     <button id="no" class="btn">NO</button>
 
-    <!-- 💖 CAJA FINAL -->
-    <div id="finalBox">TE AMO BELU ❤️</div>
-
   </div>
+
+  <!-- 💖 TEXTO FINAL -->
+  <div id="finalBox">TE AMO BELU ❤️</div>
 
   <script>
     let escala = 1;
@@ -144,13 +148,11 @@
       no.style.left = x + "px";
       no.style.top = y + "px";
 
-      if (escala < 2.5) {
-        escala += 0.1;
-      }
+      if (escala < 2.5) escala += 0.1;
       yes.style.transform = `scale(${escala})`;
     }
 
-    // corazones
+    // 💖 corazones
     function crearCorazon() {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -164,18 +166,18 @@
       setTimeout(() => heart.remove(), 5000);
     }
 
-    // click YES
+    // 💥 CLICK YES
     yes.addEventListener("click", () => {
 
-      // ocultar botones y pregunta
+      // ocultar todo
       yes.style.display = "none";
       no.style.display = "none";
       document.querySelector("h1").style.display = "none";
 
-      // agrandar GIF
-      gif.style.transform = "scale(1.4)";
+      // agrandar GIF SIN romper layout
+      gif.style.transform = "scale(1.2)";
 
-      // mostrar caja
+      // mostrar texto SIEMPRE
       finalBox.classList.add("show");
 
       // corazones
