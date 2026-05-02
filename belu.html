@@ -10,119 +10,67 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+      font-family: Arial;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      background: #f5f5f5;
       overflow: hidden;
     }
 
     .container {
       text-align: center;
-      width: 90%;
-      max-width: 400px;
     }
 
     img {
-      width: 70%;
-      max-width: 220px;
-      margin-bottom: 20px;
-      transition: all 0.5s ease;
+      width: 200px;
+      transition: 0.5s;
       cursor: pointer;
     }
 
     h1 {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 30px;
+      margin: 20px;
     }
 
-    .btn {
-      width: 120px;
-      height: 120px;
+    button {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
       font-size: 20px;
       border: none;
-      border-radius: 16px;
+      border-radius: 15px;
       cursor: pointer;
-      margin: 10px;
-      display: inline-block;
     }
 
-    #yes {
-      background: #4CAF50;
-      color: white;
-      transition: transform 0.2s;
-    }
-
-    #no {
-      background: #f44336;
-      color: white;
-      position: fixed;
-    }
+    #yes { background: green; color: white; }
+    #no { background: red; color: white; position: fixed; }
 
     /* 💖 TEXTO */
     #finalBox {
-      margin-top: 15px;
-      padding: 10px 15px;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 15px;
-
-      font-size: 32px;
+      margin-top: 20px;
+      font-size: 30px;
       color: #ff4d6d;
       font-family: 'Pacifico', cursive;
+      display: none;
 
-      opacity: 0;
-      transform: scale(0.5);
-      transition: all 0.5s ease;
-
-      text-shadow:
-        0 0 5px #ff4d6d,
-        0 0 10px #ff4d6d,
-        0 0 20px #ff85a2;
-    }
-
-    .show {
-      opacity: 1;
-      transform: scale(1);
+      text-shadow: 0 0 10px pink;
       animation: latir 1s infinite;
     }
 
-    /* 💓 LATIDO */
     @keyframes latir {
       0% { transform: scale(1); }
-      25% { transform: scale(1.1); }
-      50% { transform: scale(0.95); }
-      75% { transform: scale(1.15); }
+      50% { transform: scale(1.1); }
       100% { transform: scale(1); }
     }
 
-    /* 💥 MODO PANTALLA COMPLETA */
+    /* 💥 PANTALLA COMPLETA */
     .fullscreen {
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) scale(1.5);
-      font-size: 50px;
-      text-align: center;
+      transform: translate(-50%, -50%) scale(2);
       z-index: 9999;
-      animation: latir 1s infinite;
-    }
-
-    /* 💖 corazones */
-    .heart {
-      position: fixed;
-      bottom: -20px;
-      font-size: 24px;
-      animation: float 5s linear infinite;
-      color: pink;
-      pointer-events: none;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-100vh); opacity: 0; }
     }
 
   </style>
@@ -134,80 +82,52 @@
 
     <img id="gif" src="amor.gif">
 
-    <h1>¿Querés estar conmigo? 🥺</h1>
+    <h1 id="titulo">¿Querés estar conmigo? 🥺</h1>
 
-    <button id="yes" class="btn">YES</button>
-    <button id="no" class="btn">NO</button>
+    <button id="yes">YES</button>
+    <button id="no">NO</button>
 
     <div id="finalBox">TE AMO BELU ❤️</div>
 
   </div>
 
   <script>
-    let escala = 1;
 
     const yes = document.getElementById("yes");
     const no = document.getElementById("no");
     const gif = document.getElementById("gif");
     const finalBox = document.getElementById("finalBox");
+    const titulo = document.getElementById("titulo");
 
     // mover NO
-    no.addEventListener("mouseenter", moverNo);
-    no.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      moverNo();
-    });
-
-    function moverNo() {
-      if (navigator.vibrate) navigator.vibrate(100);
-
-      const x = Math.random() * (window.innerWidth - no.offsetWidth);
-      const y = Math.random() * (window.innerHeight - no.offsetHeight);
+    no.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 50);
 
       no.style.left = x + "px";
       no.style.top = y + "px";
+    });
 
-      if (escala < 2.5) escala += 0.1;
-      yes.style.transform = `scale(${escala})`;
-    }
-
-    // corazones
-    function crearCorazon() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "❤️";
-
-      heart.style.left = Math.random() * 100 + "vw";
-
-      document.body.appendChild(heart);
-
-      setTimeout(() => heart.remove(), 5000);
-    }
-
-    // click YES
+    // CLICK YES
     yes.addEventListener("click", () => {
-
       yes.style.display = "none";
       no.style.display = "none";
-      document.querySelector("h1").style.display = "none";
+      titulo.style.display = "none";
 
-      gif.style.transform = "scale(1.1)";
-
-      finalBox.classList.add("show");
-
-      setInterval(crearCorazon, 300);
+      // 💖 mostrar texto
+      finalBox.style.display = "block";
     });
 
-    // 💥 DOBLE CLICK EN GIF
+    // DOBLE CLICK GIF
     gif.addEventListener("dblclick", () => {
-
-      // ocultar GIF
       gif.style.display = "none";
-
-      // texto a pantalla completa
-      finalBox.classList.remove("show");
       finalBox.classList.add("fullscreen");
     });
+
+  </script>
+
+</body>
+</html>
 
   </script>
 
