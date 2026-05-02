@@ -29,7 +29,8 @@
       width: 70%;
       max-width: 220px;
       margin-bottom: 20px;
-      transition: transform 0.5s ease;
+      transition: all 0.5s ease;
+      cursor: pointer;
     }
 
     h1 {
@@ -61,45 +62,52 @@
       position: fixed;
     }
 
-    /* 💖 TEXTO FINAL SIEMPRE VISIBLE */
+    /* 💖 TEXTO */
     #finalBox {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%) scale(0.5);
-
-      padding: 15px 25px;
+      margin-top: 15px;
+      padding: 10px 15px;
       background: rgba(255, 255, 255, 0.7);
-      border-radius: 20px;
+      border-radius: 15px;
 
       font-size: 32px;
       color: #ff4d6d;
       font-family: 'Pacifico', cursive;
 
       opacity: 0;
+      transform: scale(0.5);
       transition: all 0.5s ease;
 
       text-shadow:
         0 0 5px #ff4d6d,
         0 0 10px #ff4d6d,
         0 0 20px #ff85a2;
-      
-      z-index: 9999; /* 👈 SIEMPRE ARRIBA */
     }
 
     .show {
       opacity: 1;
-      transform: translateX(-50%) scale(1);
+      transform: scale(1);
       animation: latir 1s infinite;
     }
 
     /* 💓 LATIDO */
     @keyframes latir {
-      0% { transform: translateX(-50%) scale(1); }
-      25% { transform: translateX(-50%) scale(1.1); }
-      50% { transform: translateX(-50%) scale(0.95); }
-      75% { transform: translateX(-50%) scale(1.15); }
-      100% { transform: translateX(-50%) scale(1); }
+      0% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      50% { transform: scale(0.95); }
+      75% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    /* 💥 MODO PANTALLA COMPLETA */
+    .fullscreen {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.5);
+      font-size: 50px;
+      text-align: center;
+      z-index: 9999;
+      animation: latir 1s infinite;
     }
 
     /* 💖 corazones */
@@ -131,10 +139,9 @@
     <button id="yes" class="btn">YES</button>
     <button id="no" class="btn">NO</button>
 
-  </div>
+    <div id="finalBox">TE AMO BELU ❤️</div>
 
-  <!-- 💖 TEXTO FINAL -->
-  <div id="finalBox">TE AMO BELU ❤️</div>
+  </div>
 
   <script>
     let escala = 1;
@@ -144,6 +151,7 @@
     const gif = document.getElementById("gif");
     const finalBox = document.getElementById("finalBox");
 
+    // mover NO
     no.addEventListener("mouseenter", moverNo);
     no.addEventListener("touchstart", (e) => {
       e.preventDefault();
@@ -163,6 +171,7 @@
       yes.style.transform = `scale(${escala})`;
     }
 
+    // corazones
     function crearCorazon() {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -175,22 +184,31 @@
       setTimeout(() => heart.remove(), 5000);
     }
 
+    // click YES
     yes.addEventListener("click", () => {
 
-      // ocultar todo
       yes.style.display = "none";
       no.style.display = "none";
       document.querySelector("h1").style.display = "none";
 
-      // gif leve
       gif.style.transform = "scale(1.1)";
 
-      // 💥 MOSTRAR TEXTO SI O SI
       finalBox.classList.add("show");
 
-      // corazones
       setInterval(crearCorazon, 300);
     });
+
+    // 💥 DOBLE CLICK EN GIF
+    gif.addEventListener("dblclick", () => {
+
+      // ocultar GIF
+      gif.style.display = "none";
+
+      // texto a pantalla completa
+      finalBox.classList.remove("show");
+      finalBox.classList.add("fullscreen");
+    });
+
   </script>
 
 </body>
