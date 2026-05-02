@@ -36,15 +36,16 @@
       margin-bottom: 30px;
     }
 
+    /* 🔥 BOTONES CUADRADOS */
     .btn {
-      width: 80%;
-      padding: 15px;
-      font-size: 22px;
+      width: 120px;
+      height: 120px;
+      font-size: 20px;
       border: none;
-      border-radius: 12px;
+      border-radius: 16px;
       cursor: pointer;
-      margin: 10px auto;
-      display: block;
+      margin: 10px;
+      display: inline-block;
     }
 
     #yes {
@@ -56,7 +57,7 @@
     #no {
       background: #f44336;
       color: white;
-      position: fixed; /* 👈 clave para que no rompa el layout */
+      position: fixed;
     }
 
     #mensaje {
@@ -89,7 +90,7 @@
     const mensaje = document.getElementById("mensaje");
 
     // Eventos
-    no.addEventListener("mouseover", moverNo);
+    no.addEventListener("mouseenter", moverNo);
     no.addEventListener("touchstart", (e) => {
       e.preventDefault();
       moverNo();
@@ -113,7 +114,7 @@
       no.style.left = x + "px";
       no.style.top = y + "px";
 
-      // agrandar YES con escala (más prolijo)
+      // agrandar YES
       if (escala < 2.5) {
         escala += 0.1;
       }
@@ -123,6 +124,9 @@
     // Click en YES
     yes.addEventListener("click", () => {
       mensaje.innerHTML = "Sabía que ibas a decir que sí 😍❤️";
+
+      // 💥 eliminar NO
+      no.style.display = "none";
     });
   </script>
 
