@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Para vos ❤️</title>
 
+  <!-- fuente linda -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
@@ -28,6 +31,7 @@
       width: 70%;
       max-width: 220px;
       margin-bottom: 20px;
+      transition: transform 0.5s ease;
     }
 
     h1 {
@@ -36,7 +40,6 @@
       margin-bottom: 30px;
     }
 
-    /* 🔥 BOTONES CUADRADOS */
     .btn {
       width: 120px;
       height: 120px;
@@ -64,6 +67,23 @@
       margin-top: 20px;
       font-size: 20px;
     }
+
+    /* 💖 mensaje final */
+    #final {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      font-size: 40px;
+      color: #ff4d6d;
+      font-family: 'Pacifico', cursive;
+      text-align: center;
+      transition: transform 0.5s ease;
+    }
+
+    .show {
+      transform: translate(-50%, -50%) scale(1);
+    }
   </style>
 </head>
 
@@ -82,14 +102,19 @@
 
   </div>
 
+  <!-- 💖 MENSAJE FINAL -->
+  <div id="final">TE AMO BELU ❤️</div>
+
   <script>
     let escala = 1;
 
     const yes = document.getElementById("yes");
     const no = document.getElementById("no");
     const mensaje = document.getElementById("mensaje");
+    const gif = document.getElementById("gif");
+    const final = document.getElementById("final");
 
-    // Eventos
+    // Movimiento NO
     no.addEventListener("mouseenter", moverNo);
     no.addEventListener("touchstart", (e) => {
       e.preventDefault();
@@ -97,7 +122,6 @@
     });
 
     function moverNo() {
-      // vibración
       if (navigator.vibrate) {
         navigator.vibrate(100);
       }
@@ -114,19 +138,27 @@
       no.style.left = x + "px";
       no.style.top = y + "px";
 
-      // agrandar YES
       if (escala < 2.5) {
         escala += 0.1;
       }
       yes.style.transform = `scale(${escala})`;
     }
 
-    // Click en YES
+    // CLICK YES
     yes.addEventListener("click", () => {
-      mensaje.innerHTML = "Sabía que ibas a decir que sí 😍❤️";
+      mensaje.innerHTML = "";
 
-      // 💥 eliminar NO
+      // 💥 desaparecen botones
+      yes.style.display = "none";
       no.style.display = "none";
+
+      // 💖 agrandar GIF
+      gif.style.transform = "scale(1.8)";
+
+      // 💖 mostrar mensaje final
+      setTimeout(() => {
+        final.classList.add("show");
+      }, 300);
     });
   </script>
 
