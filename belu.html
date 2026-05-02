@@ -23,6 +23,7 @@
       text-align: center;
       width: 90%;
       max-width: 400px;
+      transition: transform 0.5s ease;
     }
 
     img {
@@ -61,22 +62,24 @@
       position: fixed;
     }
 
-    /* 💖 TEXTO FINAL CON GLOW */
-    #final {
-      font-size: 40px;
+    /* 💖 CAJA DE TEXTO FINAL */
+    #finalBox {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255, 192, 203, 0.2);
+      border-radius: 20px;
+      font-size: 28px;
       color: #ff4d6d;
       font-family: 'Pacifico', cursive;
-      margin-top: 20px;
       opacity: 0;
       transform: scale(0.5);
       transition: all 0.5s ease;
 
-      /* 🔥 GLOW ROSA */
+      /* glow */
       text-shadow:
         0 0 5px #ff4d6d,
         0 0 10px #ff4d6d,
-        0 0 20px #ff85a2,
-        0 0 40px #ff85a2;
+        0 0 20px #ff85a2;
     }
 
     .show {
@@ -84,7 +87,7 @@
       transform: scale(1);
     }
 
-    /* 💖 CORAZONES */
+    /* 💖 corazones */
     .heart {
       position: fixed;
       bottom: -20px;
@@ -94,14 +97,8 @@
     }
 
     @keyframes float {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh);
-        opacity: 0;
-      }
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
     }
 
   </style>
@@ -109,7 +106,7 @@
 
 <body>
 
-  <div class="container">
+  <div class="container" id="container">
 
     <img id="gif" src="amor.gif">
 
@@ -118,7 +115,8 @@
     <button id="yes" class="btn">YES</button>
     <button id="no" class="btn">NO</button>
 
-    <div id="final">TE AMO BELU ❤️</div>
+    <!-- 💖 CAJA FINAL -->
+    <div id="finalBox">TE AMO BELU ❤️</div>
 
   </div>
 
@@ -128,7 +126,7 @@
     const yes = document.getElementById("yes");
     const no = document.getElementById("no");
     const gif = document.getElementById("gif");
-    const final = document.getElementById("final");
+    const finalBox = document.getElementById("finalBox");
 
     // mover NO
     no.addEventListener("mouseenter", moverNo);
@@ -138,9 +136,7 @@
     });
 
     function moverNo() {
-      if (navigator.vibrate) {
-        navigator.vibrate(100);
-      }
+      if (navigator.vibrate) navigator.vibrate(100);
 
       const x = Math.random() * (window.innerWidth - no.offsetWidth);
       const y = Math.random() * (window.innerHeight - no.offsetHeight);
@@ -154,7 +150,7 @@
       yes.style.transform = `scale(${escala})`;
     }
 
-    // 💖 corazones
+    // corazones
     function crearCorazon() {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -165,26 +161,22 @@
 
       document.body.appendChild(heart);
 
-      setTimeout(() => {
-        heart.remove();
-      }, 5000);
+      setTimeout(() => heart.remove(), 5000);
     }
 
-    // 💥 CLICK YES
+    // click YES
     yes.addEventListener("click", () => {
 
-      // ocultar botones
+      // ocultar botones y pregunta
       yes.style.display = "none";
       no.style.display = "none";
-
-      // ocultar pregunta
       document.querySelector("h1").style.display = "none";
 
       // agrandar GIF
-      gif.style.transform = "scale(1.5)";
+      gif.style.transform = "scale(1.4)";
 
-      // mostrar texto glow
-      final.classList.add("show");
+      // mostrar caja
+      finalBox.classList.add("show");
 
       // corazones
       setInterval(crearCorazon, 300);
