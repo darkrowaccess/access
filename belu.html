@@ -2,27 +2,47 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Para vos ❤️</title>
 
   <style>
     body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
       text-align: center;
-      font-family: Arial;
-      background: #f5f5f5;
-      margin-top: 100px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    img {
+      width: 70%;
+      max-width: 220px;
+      margin-bottom: 20px;
     }
 
     h1 {
-      color: #444;
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 30px;
     }
 
     .btn {
-      padding: 15px 30px;
-      font-size: 20px;
+      width: 80%;
+      padding: 15px;
+      font-size: 22px;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
-      margin: 10px;
+      margin: 10px auto;
+      display: block;
     }
 
     #yes {
@@ -36,43 +56,176 @@
       color: white;
       position: absolute;
     }
+
+    #mensaje {
+      margin-top: 20px;
+      font-size: 20px;
+    }
   </style>
 </head>
 
 <body>
 
-  <img src="amor.gif" style="width:200px; display:block; margin:0 auto 20px;">
-  <h1>¿Querés estar conmigo? 🥺</h1>
+  <div class="container">
 
-  <button id="yes" class="btn">YES</button>
-  <button id="no" class="btn">NO</button>
+    <!-- GIF (cambialo por el tuyo) -->
+    <img id="gif" src="triste.gif">
 
-  <h2 id="mensaje"></h2>
+    <h1>¿Querés estar conmigo? 🥺</h1>
+
+    <button id="yes" class="btn">YES</button>
+    <button id="no" class="btn">NO</button>
+
+    <h2 id="mensaje"></h2>
+
+  </div>
 
   <script>
-    let tamaño = 20;
+    let tamaño = 22;
 
     const yes = document.getElementById("yes");
     const no = document.getElementById("no");
     const mensaje = document.getElementById("mensaje");
 
-    // Cuando intenta apretar NO
-    no.addEventListener("mouseover", () => {
-      const x = Math.random() * window.innerWidth;
-      const y = Math.random() * window.innerHeight;
+    // Movimiento del NO (mejorado para celular)
+    no.addEventListener("mouseover", moverNo);
+    no.addEventListener("touchstart", moverNo);
+
+    function moverNo() {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 50);
 
       no.style.left = x + "px";
       no.style.top = y + "px";
 
       // agrandar el YES
-      tamaño += 10;
+      tamaño += 8;
       yes.style.fontSize = tamaño + "px";
       yes.style.padding = (tamaño/2) + "px " + tamaño + "px";
-    });
+    }
 
-    // Cuando aprieta YES
+    // Click en YES
     yes.addEventListener("click", () => {
       mensaje.innerHTML = "Sabía que ibas a decir que sí 😍❤️";
+
+      // cambia el GIF
+      document.getElementById("gif").src = "feliz.gif";
+    });
+  </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para vos ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    img {
+      width: 70%;
+      max-width: 220px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      width: 80%;
+      padding: 15px;
+      font-size: 22px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 10px auto;
+      display: block;
+    }
+
+    #yes {
+      background: #4CAF50;
+      color: white;
+      transition: 0.3s;
+    }
+
+    #no {
+      background: #f44336;
+      color: white;
+      position: absolute;
+    }
+
+    #mensaje {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- GIF (cambialo por el tuyo) -->
+    <img id="gif" src="triste.gif">
+
+    <h1>¿Querés estar conmigo? 🥺</h1>
+
+    <button id="yes" class="btn">YES</button>
+    <button id="no" class="btn">NO</button>
+
+    <h2 id="mensaje"></h2>
+
+  </div>
+
+  <script>
+    let tamaño = 22;
+
+    const yes = document.getElementById("yes");
+    const no = document.getElementById("no");
+    const mensaje = document.getElementById("mensaje");
+
+    // Movimiento del NO (mejorado para celular)
+    no.addEventListener("mouseover", moverNo);
+    no.addEventListener("touchstart", moverNo);
+
+    function moverNo() {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 50);
+
+      no.style.left = x + "px";
+      no.style.top = y + "px";
+
+      // agrandar el YES
+      tamaño += 8;
+      yes.style.fontSize = tamaño + "px";
+      yes.style.padding = (tamaño/2) + "px " + tamaño + "px";
+    }
+
+    // Click en YES
+    yes.addEventListener("click", () => {
+      mensaje.innerHTML = "Sabía que ibas a decir que sí 😍❤️";
+
+      // cambia el GIF
+      document.getElementById("gif").src = "feliz.gif";
     });
   </script>
 
