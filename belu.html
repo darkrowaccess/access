@@ -23,6 +23,8 @@
       text-align: center;
       width: 90%;
       max-width: 400px;
+      position: relative;
+      z-index: 2;
     }
 
     img {
@@ -30,6 +32,8 @@
       max-width: 220px;
       margin-bottom: 20px;
       transition: transform 0.5s ease;
+      position: relative;
+      z-index: 1;
     }
 
     h1 {
@@ -61,22 +65,19 @@
       position: fixed;
     }
 
-    /* 💖 CAJA FINAL (SIEMPRE VISIBLE) */
+    /* 💖 TEXTO FINAL (LATIDO + LEGIBLE) */
     #finalBox {
-      position: fixed;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%) scale(0.5);
+      margin-top: 15px;
+      padding: 10px 15px;
+      background: rgba(255, 255, 255, 0.6); /* 👈 mejora lectura */
+      border-radius: 15px;
 
-      padding: 15px 25px;
-      background: rgba(255, 192, 203, 0.3);
-      border-radius: 20px;
-
-      font-size: 30px;
+      font-size: 32px;
       color: #ff4d6d;
       font-family: 'Pacifico', cursive;
 
       opacity: 0;
+      transform: scale(0.5);
       transition: all 0.5s ease;
 
       text-shadow:
@@ -85,9 +86,22 @@
         0 0 20px #ff85a2;
     }
 
+    /* 💓 ANIMACIÓN LATIDO */
+    .latido {
+      animation: latir 1s infinite;
+    }
+
+    @keyframes latir {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      40% { transform: scale(0.95); }
+      60% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
     .show {
       opacity: 1;
-      transform: translateX(-50%) scale(1);
+      transform: scale(1);
     }
 
     /* 💖 corazones */
@@ -98,6 +112,7 @@
       animation: float 5s linear infinite;
       color: pink;
       pointer-events: none;
+      z-index: 0;
     }
 
     @keyframes float {
@@ -119,10 +134,10 @@
     <button id="yes" class="btn">YES</button>
     <button id="no" class="btn">NO</button>
 
-  </div>
+    <!-- 💖 TEXTO FINAL -->
+    <div id="finalBox">TE AMO BELU ❤️</div>
 
-  <!-- 💖 TEXTO FINAL -->
-  <div id="finalBox">TE AMO BELU ❤️</div>
+  </div>
 
   <script>
     let escala = 1;
@@ -174,11 +189,12 @@
       no.style.display = "none";
       document.querySelector("h1").style.display = "none";
 
-      // agrandar GIF SIN romper layout
+      // agrandar GIF suave
       gif.style.transform = "scale(1.2)";
 
-      // mostrar texto SIEMPRE
+      // mostrar texto + latido
       finalBox.classList.add("show");
+      finalBox.classList.add("latido");
 
       // corazones
       setInterval(crearCorazon, 300);
