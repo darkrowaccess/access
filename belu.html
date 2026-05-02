@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Para vos ❤️</title>
 
-  <!-- fuente linda -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
   <style>
@@ -24,7 +23,6 @@
       text-align: center;
       width: 90%;
       max-width: 400px;
-      position: relative;
     }
 
     img {
@@ -63,27 +61,42 @@
       position: fixed;
     }
 
-    #mensaje {
-      margin-top: 20px;
-      font-size: 20px;
-    }
-
-    /* 💖 mensaje final */
+    /* 💖 TEXTO FINAL ABAJO DEL GIF */
     #final {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      font-size: 40px;
+      font-size: 36px;
       color: #ff4d6d;
       font-family: 'Pacifico', cursive;
-      text-align: center;
-      transition: transform 0.5s ease;
+      margin-top: 20px;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.5s ease;
     }
 
     .show {
-      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      transform: scale(1);
     }
+
+    /* 💖 CORAZONES */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      animation: float 5s linear infinite;
+      color: pink;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
   </style>
 </head>
 
@@ -98,23 +111,20 @@
     <button id="yes" class="btn">YES</button>
     <button id="no" class="btn">NO</button>
 
-    <h2 id="mensaje"></h2>
+    <!-- 💖 TEXTO FINAL -->
+    <div id="final">TE AMO BELU ❤️</div>
 
   </div>
-
-  <!-- 💖 MENSAJE FINAL -->
-  <div id="final">TE AMO BELU ❤️</div>
 
   <script>
     let escala = 1;
 
     const yes = document.getElementById("yes");
     const no = document.getElementById("no");
-    const mensaje = document.getElementById("mensaje");
     const gif = document.getElementById("gif");
     const final = document.getElementById("final");
 
-    // Movimiento NO
+    // mover NO
     no.addEventListener("mouseenter", moverNo);
     no.addEventListener("touchstart", (e) => {
       e.preventDefault();
@@ -126,14 +136,8 @@
         navigator.vibrate(100);
       }
 
-      const btnWidth = no.offsetWidth;
-      const btnHeight = no.offsetHeight;
-
-      const maxX = window.innerWidth - btnWidth;
-      const maxY = window.innerHeight - btnHeight;
-
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+      const x = Math.random() * (window.innerWidth - no.offsetWidth);
+      const y = Math.random() * (window.innerHeight - no.offsetHeight);
 
       no.style.left = x + "px";
       no.style.top = y + "px";
@@ -144,21 +148,37 @@
       yes.style.transform = `scale(${escala})`;
     }
 
-    // CLICK YES
-    yes.addEventListener("click", () => {
-      mensaje.innerHTML = "";
+    // 💖 CORAZONES
+    function crearCorazon() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
 
-      // 💥 desaparecen botones
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (20 + Math.random() * 20) + "px";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    // click YES
+    yes.addEventListener("click", () => {
+
+      // ocultar botones
       yes.style.display = "none";
       no.style.display = "none";
 
-      // 💖 agrandar GIF
-      gif.style.transform = "scale(1.8)";
+      // agrandar GIF (sin tapar texto)
+      gif.style.transform = "scale(1.5)";
 
-      // 💖 mostrar mensaje final
-      setTimeout(() => {
-        final.classList.add("show");
-      }, 300);
+      // mostrar texto abajo
+      final.classList.add("show");
+
+      // activar corazones
+      setInterval(crearCorazon, 300);
     });
   </script>
 
