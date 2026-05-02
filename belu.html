@@ -61,15 +61,22 @@
       position: fixed;
     }
 
-    /* 💖 TEXTO FINAL ABAJO DEL GIF */
+    /* 💖 TEXTO FINAL CON GLOW */
     #final {
-      font-size: 36px;
+      font-size: 40px;
       color: #ff4d6d;
       font-family: 'Pacifico', cursive;
       margin-top: 20px;
       opacity: 0;
       transform: scale(0.5);
       transition: all 0.5s ease;
+
+      /* 🔥 GLOW ROSA */
+      text-shadow:
+        0 0 5px #ff4d6d,
+        0 0 10px #ff4d6d,
+        0 0 20px #ff85a2,
+        0 0 40px #ff85a2;
     }
 
     .show {
@@ -111,7 +118,6 @@
     <button id="yes" class="btn">YES</button>
     <button id="no" class="btn">NO</button>
 
-    <!-- 💖 TEXTO FINAL -->
     <div id="final">TE AMO BELU ❤️</div>
 
   </div>
@@ -148,7 +154,7 @@
       yes.style.transform = `scale(${escala})`;
     }
 
-    // 💖 CORAZONES
+    // 💖 corazones
     function crearCorazon() {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -164,20 +170,23 @@
       }, 5000);
     }
 
-    // click YES
+    // 💥 CLICK YES
     yes.addEventListener("click", () => {
 
       // ocultar botones
       yes.style.display = "none";
       no.style.display = "none";
 
-      // agrandar GIF (sin tapar texto)
+      // ocultar pregunta
+      document.querySelector("h1").style.display = "none";
+
+      // agrandar GIF
       gif.style.transform = "scale(1.5)";
 
-      // mostrar texto abajo
+      // mostrar texto glow
       final.classList.add("show");
 
-      // activar corazones
+      // corazones
       setInterval(crearCorazon, 300);
     });
   </script>
