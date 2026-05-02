@@ -14,13 +14,14 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      overflow: hidden; /* evita scroll */
+      overflow: hidden;
     }
 
     .container {
       text-align: center;
       width: 90%;
       max-width: 400px;
+      position: relative;
     }
 
     img {
@@ -49,13 +50,13 @@
     #yes {
       background: #4CAF50;
       color: white;
-      transition: 0.3s;
+      transition: transform 0.2s;
     }
 
     #no {
       background: #f44336;
       color: white;
-      position: absolute;
+      position: fixed; /* 👈 clave para que no rompa el layout */
     }
 
     #mensaje {
@@ -81,13 +82,13 @@
   </div>
 
   <script>
-    let tamaño = 22;
+    let escala = 1;
 
     const yes = document.getElementById("yes");
     const no = document.getElementById("no");
     const mensaje = document.getElementById("mensaje");
 
-    // Movimiento + vibración
+    // Eventos
     no.addEventListener("mouseover", moverNo);
     no.addEventListener("touchstart", (e) => {
       e.preventDefault();
@@ -95,7 +96,7 @@
     });
 
     function moverNo() {
-      // 📳 vibración (si el celular lo soporta)
+      // vibración
       if (navigator.vibrate) {
         navigator.vibrate(100);
       }
@@ -112,10 +113,11 @@
       no.style.left = x + "px";
       no.style.top = y + "px";
 
-      // agrandar el YES
-      tamaño += 8;
-      yes.style.fontSize = tamaño + "px";
-      yes.style.padding = (tamaño/2) + "px " + tamaño + "px";
+      // agrandar YES con escala (más prolijo)
+      if (escala < 2.5) {
+        escala += 0.1;
+      }
+      yes.style.transform = `scale(${escala})`;
     }
 
     // Click en YES
